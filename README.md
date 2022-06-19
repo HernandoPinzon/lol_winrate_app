@@ -1,16 +1,8 @@
-# winrateforlol_app
+# Winrate for League Of Leguends APP
 
-A new Flutter project.
+Is a flutter proyect that allow you to search your general winrate against all champions and some others funtionalities
 
-## Getting Started
+## How it looks
 
-This project is a starting point for a Flutter application.
+![](https://github.com/HernandoPinzon/lol_winrate_app/readmeassets/screenshot1.jpg)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
