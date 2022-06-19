@@ -1,6 +1,6 @@
 # Winrate for League Of Leguends APP
 
-Is a flutter proyect taht allow you to search your general winrate against all champions and some others funtionalities
+Is a flutter proyect that allows you to search your general winrate against all champions and some others funtionalities
 
 ## How it looks
 
