@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:winrateforlol_app/pages/results_page.dart';
 import 'package:winrateforlol_app/pages/search_page.dart';
 
 void main() {
@@ -14,9 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
       home: SearchPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
