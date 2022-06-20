@@ -60,10 +60,18 @@ class SearchingSection extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              _saveNameInPreferences();
-              _showResultsPage(context);
+              if (nameSummoner.length>2) {
+                _saveNameInPreferences();
+                _showResultsPage(context);
+              } else {
+                //TODO:hacer q funcione
+                AlertDialog(
+                  title: Text("Debes escribir un nombre en el cuadro de bsuqueda"),
+                );
+              }
+              
             },
-            icon: Icon(Icons.search_sharp),
+            icon: Icon(Icons.search_sharp, color:Colors.blueGrey,),
           )
         ],
       ),

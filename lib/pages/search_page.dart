@@ -19,9 +19,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _loadPreferences() async {
-    example = await PreferenceHandler.getJsonExample();
-    //PreferenceHandler.printJsonExample();
-    setState(() {});
+    //TODO:evitar fallos cuando no hay nada guardado
   }
 
   @override
@@ -31,25 +29,76 @@ class _SearchPageState extends State<SearchPage> {
       bottomNavigationBar: MyNavigationBar(),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.only(top: 10,left: 10,right: 10),
           //width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
+            
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SearchingSection(),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
-              Container(
-                color: Colors.amber,
-                width: 200,
-                child: Column(
-                  children: List.generate(
-                    example.length,
-                    (index) => Text(example[index]),
-                  ),
-                ),
-              )
+              FutureBuilder(
+                future: PreferenceHandler.getJsonExample(),
+                initialData: const ["cargando1", "cargando2"],
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<String>> snapshot) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xffc1d5e0),
+                      border: Border.all(
+                        width: 1,
+                        color: Color(0xff62757f),
+                      ),
+                    ),
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    //width: double.infinity,
+                    child: Column(
+                      children: List.generate(
+                        snapshot.data!.length,
+                        (index) => Container(
+                          decoration: BoxDecoration(
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        child: Text("Lan"),
+                                        margin:
+                                            EdgeInsets.symmetric(horizontal: 5),
+                                      ),
+                                      Container(
+                                        width: 1,
+                                        height: 25,
+                                        color: Color(0xff62757f),
+                                        margin:
+                                            EdgeInsets.symmetric(horizontal: 2),
+                                      ),
+                                      Container(
+                                        margin:
+                                            EdgeInsets.symmetric(horizontal: 2),
+                                        child: Text(
+                                          snapshot.data![index],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:winrateforlol_app/models/options_handler.dart';
 import 'package:winrateforlol_app/pages/results_page.dart';
 import 'package:winrateforlol_app/pages/search_page.dart';
 
@@ -9,7 +10,26 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: OptionsHandler.initOptions(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState==ConnectionState.done) {
+          return MaterialAppOld();
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  }
+}
+
+class MaterialAppOld extends StatelessWidget {
+  const MaterialAppOld({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,4 +41,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
     );
   }
+}
+
+void initOptions() async {
+  //TODO:Cargar todo aqui y ponerlo en el FutureBuilder
+  await OptionsHandler.initOptions();
+  print("postInitOptionsCharged");
 }
