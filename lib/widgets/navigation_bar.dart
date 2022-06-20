@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:winrateforlol_app/pages/account_page.dart';
 import 'package:winrateforlol_app/pages/options_page.dart';
 import 'package:winrateforlol_app/pages/search_page.dart';
 
@@ -28,11 +29,22 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
         reverseTransitionDuration: Duration.zero);
     Navigator.pushReplacement(context, route2);
   }
+  void _showAccountPage(BuildContext context) {
+    //creando la ruta hacia la pagina de Busqueda
+    final Route route2 = PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => AccountPage(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero);
+    Navigator.pushReplacement(context, route2);
+  }
 
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       onTap: (value) {
         switch (value) {
+          case 0:
+            _showAccountPage(context);
+            break;
           case 1:
             _showSearchPage(context);
             break;

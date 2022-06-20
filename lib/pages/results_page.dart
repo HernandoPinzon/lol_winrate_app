@@ -28,7 +28,8 @@ class _ResultsPageState extends State<ResultsPage> {
         //la sombra del abbbar
         elevation: 0,
         //boton de volver atras
-        leading: IconButton(
+        
+        leading:  IconButton(
           onPressed: () {
             if (Navigator.canPop(context)) {
               Navigator.pop(context);
@@ -36,8 +37,12 @@ class _ResultsPageState extends State<ResultsPage> {
               print("no hay pagina para volver atras");
             }
           },
-          icon: Icon(
+          //TODO:hacer esto pero con una variable
+          icon: Navigator.canPop(context)?Icon(
             Icons.arrow_back,
+            color: Colors.black,
+          ):Icon(
+            Icons.account_circle_outlined,
             color: Colors.black,
           ),
         ),
@@ -45,10 +50,11 @@ class _ResultsPageState extends State<ResultsPage> {
         backgroundColor: Color(0xff90a4ae),
         titleTextStyle: TextStyle(color: Colors.black, fontSize: 18),
         title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('${widget.summonerName}'),
             Text(
-              " 50% (30V 30L)",
+              "50% (30V 30L)",
               style: TextStyle(fontWeight: FontWeight.bold),
             )
           ],
