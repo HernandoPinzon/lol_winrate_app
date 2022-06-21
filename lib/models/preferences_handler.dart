@@ -1,75 +1,25 @@
-
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PreferenceHandler{
+class PreferenceHandler {
+  static const String initialExample = '["nodata","nodata"]';
+  static List<String> searchHistory = ["nodata"];
 
-  static const String initialExample = '["summoner1","summoner2"]';
-
-
-  static Future<String> getExample() async{
+  static Future initHistory() async {
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('example')==null) {
-      await prefs.setString('example', initialExample);
-    }
-    final String? example = prefs.getString('example');
-    //print(example);
-    return Future.value(example);
-  }
-
-  static void setExample(String example) async{
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('example', example);
-  }
-
-  static void printJsonExample() async{
-    String jsonString = await getExample();
-    setExample(initialExample);
-    try {
-      List<dynamic> JSON = jsonDecode(jsonString);
-      final List<String> strs = JSON.map((e) => e.toString()).toList();
-    } catch (e) {
-      setExample(initialExample);
-      String jsonString = await getExample();
-      List<dynamic> JSON = jsonDecode(jsonString);
-      final List<String> strs = JSON.map((e) => e.toString()).toList();
+    if (prefs.containsKey('searchHistory')) {
+      String jsonString = prefs.getString('searchHistory')!;
+      List<dynamic> json = jsonDecode(jsonString);
+      searchHistory = json.map((e) => e.toString()).toList();
     }
   }
 
-  static void setJsonExample(String example) async{
-    String jsonString = await getExample();
-    List<dynamic> JSON = jsonDecode(jsonString);
-    final List<String> strs = JSON.map((e) => e.toString()).toList();
-    if (strs.length>9) {
-      strs.removeLast();
+  static void addSearchInHistory(String value) async {
+    if (searchHistory.length > 9) {
+      searchHistory.removeLast();
     }
-    strs.insert(0, example);
+    searchHistory.insert(0, value);
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('example', jsonEncode(strs));
-  }
-
-  static Future<List<String>> getJsonExample() async{
-    String jsonString = await getExample();
-    try {
-      List<dynamic> JSON = jsonDecode(jsonString);
-      final List<String> strs = JSON.map((e) => e.toString()).toList();
-      return strs;
-    } catch (e) {
-      setExample(initialExample);
-      String jsonString = await getExample();
-      List<dynamic> JSON = jsonDecode(jsonString);
-      final List<String> strs = JSON.map((e) => e.toString()).toList();
-      return strs;
-    }
-  }
-
-  static void deleteExample() async{
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('example');
-  }
-
-  static void setInitialValues(){
-    Map<String, Object> values = <String, Object>{'example': initialExample};
-    SharedPreferences.setMockInitialValues(values);
+    await prefs.setString('searchHistory', jsonEncode(searchHistory));
   }
 }

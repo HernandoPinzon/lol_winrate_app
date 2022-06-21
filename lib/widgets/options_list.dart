@@ -21,20 +21,6 @@ class _OptionsListState extends State<OptionsList> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Switch(
-                value: _exampleEnable,
-                onChanged: (bool value) {
-                  setState(() {
-                    _exampleEnable = value;
-                  });
-                },
-              ),
-            ],
-          ),
-          const LineSeparator(),
           SwitchListTile(
             value: OptionsHandler.defaultPagePerfil,
             title: const Text(

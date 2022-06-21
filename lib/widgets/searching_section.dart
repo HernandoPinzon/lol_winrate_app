@@ -20,9 +20,9 @@ class SearchingSection extends StatelessWidget {
     
   }
 
-  void _saveNameInPreferences() async{
+  void _saveSearhInHistory() async{
     //PreferenceHandler.setExample(nameSummoner);
-    PreferenceHandler.setJsonExample(nameSummoner);
+    PreferenceHandler.addSearchInHistory(nameSummoner);
   }
 
   @override
@@ -60,7 +60,7 @@ class SearchingSection extends StatelessWidget {
           IconButton(
             onPressed: () {
               if (nameSummoner.length>2) {
-                _saveNameInPreferences();
+                _saveSearhInHistory();
                 _showResultsPage(context);
               } else {
                 //TODO:hacer q funcione

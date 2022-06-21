@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:winrateforlol_app/models/options_handler.dart';
+import 'package:winrateforlol_app/models/preferences_handler.dart';
 import 'package:winrateforlol_app/pages/results_page.dart';
 import 'package:winrateforlol_app/pages/search_page.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: OptionsHandler.initOptions(),
+      future: initOptions(),
       builder: (context, snapshot) {
         if (snapshot.connectionState==ConnectionState.done) {
           return MaterialAppOld();
@@ -43,8 +44,9 @@ class MaterialAppOld extends StatelessWidget {
   }
 }
 
-void initOptions() async {
+Future initOptions() async {
   //TODO:Cargar todo aqui y ponerlo en el FutureBuilder
   await OptionsHandler.initOptions();
+  await PreferenceHandler.initHistory();
   print("postInitOptionsCharged");
 }
