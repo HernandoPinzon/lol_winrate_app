@@ -50,7 +50,7 @@ class _OptionsListState extends State<OptionsList> {
             ),
             onChanged: (bool value) {
               setState(() {
-                OptionsHandler.defaultPagePerfil = value;
+                OptionsHandler.setDefaultPagePerfil(value);
               });
             },
           ),
@@ -70,7 +70,7 @@ class _OptionsListState extends State<OptionsList> {
             ),
             onChanged: (bool value) {
               setState(() {
-                OptionsHandler.showOnlyRankedsDefault = value;
+                OptionsHandler.setShowOnlyRankedsDefault(value);
               });
             },
           ),
@@ -99,8 +99,8 @@ class _OptionsListState extends State<OptionsList> {
                           ))
                       .toList(),
                   onChanged: (value) {
-                    OptionsHandler.showDefaultResults =
-                        value ?? OptionsHandler.showDefaultResults;
+                    OptionsHandler.setShowDefaultResults(
+                        value ?? OptionsHandler.showDefaultResults);
                     setState(() {});
                   },
                 ),

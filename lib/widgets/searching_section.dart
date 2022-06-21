@@ -43,7 +43,6 @@ class SearchingSection extends StatelessWidget {
               autocorrect: false,
               onChanged: (value) {
                 nameSummoner = value;
-                print(nameSummoner);
               },
               decoration: const InputDecoration(
                 contentPadding: EdgeInsets.symmetric(

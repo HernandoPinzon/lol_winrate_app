@@ -25,12 +25,9 @@ class PreferenceHandler{
   static void printJsonExample() async{
     String jsonString = await getExample();
     setExample(initialExample);
-    print(jsonString);
     try {
       List<dynamic> JSON = jsonDecode(jsonString);
       final List<String> strs = JSON.map((e) => e.toString()).toList();
-      print(strs[0]);
-      print(strs[1]);
     } catch (e) {
       setExample(initialExample);
       String jsonString = await getExample();
@@ -43,16 +40,12 @@ class PreferenceHandler{
     String jsonString = await getExample();
     List<dynamic> JSON = jsonDecode(jsonString);
     final List<String> strs = JSON.map((e) => e.toString()).toList();
-    print(strs);
     if (strs.length>9) {
       strs.removeLast();
     }
     strs.insert(0, example);
-    print(example);
-    print(strs);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('example', jsonEncode(strs));
-    //print(jsonEncode(strs));
   }
 
   static Future<List<String>> getJsonExample() async{
