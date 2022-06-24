@@ -2,7 +2,7 @@
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class OptionsHandler{
+abstract class OptionsHandler{
 
   static bool defaultPagePerfil=false;
   static bool showOnlyRankedsDefault=false;

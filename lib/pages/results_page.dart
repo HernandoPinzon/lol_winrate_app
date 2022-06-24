@@ -1,5 +1,7 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
-import 'package:winrateforlol_app/models/initialData.dart';
+import 'package:winrateforlol_app/models/initial_data.dart';
 import 'package:winrateforlol_app/widgets/navigation_bar.dart';
 
 class ResultsPage extends StatefulWidget {
@@ -30,18 +32,21 @@ class _ResultsPageState extends State<ResultsPage> {
         //boton de volver atras
         
         leading:  IconButton(
-          onPressed: () {
+          onPressed: () async{
             if (Navigator.canPop(context)) {
               Navigator.pop(context);
             } else {
               print("no hay pagina para volver atras");
+              await ChampionDataHandler.getLastVersion();
+              await ChampionDataHandler.initChampionsList();
+              print("finLlamadas");
             }
           },
           //TODO:hacer esto pero con una variable
-          icon: Navigator.canPop(context)?Icon(
+          icon: Navigator.canPop(context)?const Icon(
             Icons.arrow_back,
             color: Colors.black,
-          ):Icon(
+          ):const Icon(
             Icons.account_circle_outlined,
             color: Colors.black,
           ),
@@ -53,7 +58,7 @@ class _ResultsPageState extends State<ResultsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('${widget.summonerName}'),
-            Text(
+            const Text(
               "50% (30V 30L)",
               style: TextStyle(fontWeight: FontWeight.bold),
             )
@@ -65,9 +70,7 @@ class _ResultsPageState extends State<ResultsPage> {
         itemCount: InitialData.championsInitialData.length,
         itemBuilder: (BuildContext context, int i) {
           return ListTile(
-            title: Text(
-                InitialData.championsInitialData[i].championId.toString() +
-                    " champ"),
+            title: Text(ChampionDataHandler.getChampById(InitialData.championsInitialData[i].championId)),
             subtitle: Text(
               (InitialData.championsInitialData[i].losses +
                           InitialData.championsInitialData[i].wins)

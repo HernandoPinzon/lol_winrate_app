@@ -12,6 +12,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
+    //TODO:hacer que lea el nombre guardado en preferencias
     return ResultsPage(summonerName: "summonerName");
   }
 }

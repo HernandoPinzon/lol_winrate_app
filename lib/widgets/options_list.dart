@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:winrateforlol_app/models/options_handler.dart';
 
 class OptionsList extends StatefulWidget {

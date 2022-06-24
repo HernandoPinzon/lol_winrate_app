@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PreferenceHandler {
+abstract class PreferenceHandler {
   static const String initialExample = '["nodata","nodata"]';
   static List<String> searchHistory = ["nodata"];
 
