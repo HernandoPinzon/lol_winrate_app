@@ -72,12 +72,13 @@ abstract class ChampionDataHandler{
     try {
       HttpClient client = HttpClient();
       HttpClientRequest request = await client.getUrl(Uri.parse(_linkVersions));
+      
       HttpClientResponse response = await request.close();
       var _response = await response.transform(utf8.decoder).join();
       actualVersion = jsonDecode(_response)[0];
-      print(jsonDecode(_response)[1]);
       client.close();
     } catch (e) {
+      print(_linkVersions);
       print(e);
     }
   }
@@ -99,8 +100,9 @@ abstract class ChampionDataHandler{
       var json = jsonEncode(List<dynamic>.from(championList.map((x) => x.toJson())));
       final prefs = await SharedPreferences.getInstance();
       prefs.setString("championsList", json);
-      print("ok");
     } catch (e) {
+      print("Error en la recopilacion de datos de campeones");
+      print(_championDataLink);
       print(e);
     }
   }
@@ -113,7 +115,8 @@ abstract class ChampionDataHandler{
       List json = jsonDecode(jsonString);
       championList = json.map((e) => Champion(id: e["id"], key: e["key"], name: e["name"])).toList();
     } else {
-      getChampionsList();
+      await getLastVersion();
+      await getChampionsList();
     }
   }
 
@@ -132,9 +135,7 @@ class Champion {
         required this.id,
         required this.key,
         required this.name,
-    }){
-      print("se creo"+this.name);
-    }
+    });
 
     Map<String, dynamic> toJson() => {
         "id": id,
