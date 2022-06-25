@@ -6,7 +6,7 @@ abstract class OptionsHandler{
 
   static bool defaultPagePerfil=false;
   static bool showOnlyRankedsDefault=false;
-  static String showDefaultResults= showDefaultResultsOptions[2];
+  static String showDefaultResults= showDefaultResultsOptions[1];
   static final List<String> showDefaultResultsOptions = [
     "vs per rol",
     "vs all",

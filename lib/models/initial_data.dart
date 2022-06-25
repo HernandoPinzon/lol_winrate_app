@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'dart:convert' show jsonDecode, jsonEncode, utf8;
 
+import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class InitialData {
@@ -65,32 +66,43 @@ abstract class ChampionDataHandler{
   static List<Champion> championList = [];
   static const String _linkVersions = 'https://ddragon.leagueoflegends.com/api/versions.json';
   static String actualVersion = "0.0.1";
-  String _linkChampionIcon = 'http://ddragon.leagueoflegends.com/cdn/$actualVersion/img/champion/Renata.png';
-  static String _championDataLink = 'http://ddragon.leagueoflegends.com/cdn/$actualVersion/data/en_US/champion.json';
+  String _linkChampionIcon = 'https://ddragon.leagueoflegends.com/cdn/$actualVersion/img/champion/Renata.png';
+  static String _championDataLink = 'https://ddragon.leagueoflegends.com/cdn/$actualVersion/data/en_US/champion.json';
   
   static Future getLastVersion() async{
+    //TODO: guardar dato en shared prefences para hacer comparacion y ni hacer otro request de camepones si es el mismo
     try {
-      HttpClient client = HttpClient();
+      var dio = Dio();
+      var response = await dio.get(_linkVersions);
+      var result = response.data;
+      actualVersion = result[0];
+      /*HttpClient client = HttpClient();
       HttpClientRequest request = await client.getUrl(Uri.parse(_linkVersions));
       
       HttpClientResponse response = await request.close();
       var _response = await response.transform(utf8.decoder).join();
       actualVersion = jsonDecode(_response)[0];
-      client.close();
+      client.close();*/
     } catch (e) {
+      print("Error en la recopilacion de la ultima version");
       print(_linkVersions);
+      print(actualVersion);
       print(e);
     }
   }
 
   static Future getChampionsList() async{
     try {
-      HttpClient client = HttpClient();
+      var dio = Dio();
+      var response = await dio.get(_championDataLink);
+      var result = response.data;
+      Map _responseDecode = result["data"];
+      /*HttpClient client = HttpClient();
       HttpClientRequest request = await client.getUrl(Uri.parse(_championDataLink));
       HttpClientResponse response = await request.close();
       var _response = await response.transform(utf8.decoder).join();
-      client.close();
-      Map _responseDecode = jsonDecode(_response)["data"];
+      client.close();*/
+      //Map _responseDecode = jsonDecode(_response)["data"];
 
       List<String> championKeyList = _responseDecode.keys.map((e) => e.toString()).toList();
       
