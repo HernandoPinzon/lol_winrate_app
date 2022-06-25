@@ -41,6 +41,10 @@ class SearchingSection extends StatelessWidget {
           Expanded(
             child: TextField(
               autocorrect: false,
+              onSubmitted: (_){
+                _saveSearhInHistory();
+                _showResultsPage(context);
+              },
               onChanged: (value) {
                 nameSummoner = value;
               },
