@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:winrateforlol_app/models/initial_data.dart';
 import 'package:winrateforlol_app/widgets/navigation_bar.dart';
@@ -79,9 +81,9 @@ class _ResultsPageState extends State<ResultsPage> {
                   InitialData.getPerCent(InitialData.championsInitialData[i]),
             ),
             trailing: Container(
-              color: Colors.black,
-              width: 20,
-              height: 20,
+              child: Image.network("https://ddragon.leagueoflegends.com/cdn/12.12.1/img/champion/"+ChampionDataHandler.getChampById(InitialData.championsInitialData[i].championId)+".png"),
+              width: 40,
+              height: 40,
             ),
             onTap: () {
               print("me tapiaron");
