@@ -97,13 +97,6 @@ abstract class ChampionDataHandler {
       var response = await dio.get(_championDataLink);
       var result = response.data;
       Map _responseDecode = result["data"];
-      /*HttpClient client = HttpClient();
-      HttpClientRequest request = await client.getUrl(Uri.parse(_championDataLink));
-      HttpClientResponse response = await request.close();
-      var _response = await response.transform(utf8.decoder).join();
-      client.close();*/
-      //Map _responseDecode = jsonDecode(_response)["data"];
-
       List<String> championKeyList =
           _responseDecode.keys.map((e) => e.toString()).toList();
 

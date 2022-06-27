@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:winrateforlol_app/models/api_handler.dart';
 import 'package:winrateforlol_app/models/preferences_handler.dart';
 import 'package:winrateforlol_app/pages/results_page.dart';
 
@@ -20,9 +21,13 @@ class SearchingSection extends StatelessWidget {
     
   }
 
-  void _saveSearhInHistory() async{
-    //PreferenceHandler.setExample(nameSummoner);
-    PreferenceHandler.addSearchInHistory(nameSummoner);
+  void _saveSearhInHistory(BuildContext context) async{
+    if (await SummonerData.searchHistory(nameSummoner)) {
+      PreferenceHandler.addSearchInHistory(nameSummoner);
+      _showResultsPage(context);
+    }
+    
+    
   }
 
   @override
@@ -42,8 +47,7 @@ class SearchingSection extends StatelessWidget {
             child: TextField(
               autocorrect: false,
               onSubmitted: (_){
-                _saveSearhInHistory();
-                _showResultsPage(context);
+                _saveSearhInHistory(context);
               },
               onChanged: (value) {
                 nameSummoner = value;
@@ -64,8 +68,8 @@ class SearchingSection extends StatelessWidget {
           IconButton(
             onPressed: () {
               if (nameSummoner.length>2) {
-                _saveSearhInHistory();
-                _showResultsPage(context);
+                _saveSearhInHistory(context);
+                
               } else {
                 //TODO:hacer q funcione
                 AlertDialog(
