@@ -32,9 +32,9 @@ class _ResultsPageState extends State<ResultsPage> {
         //la sombra del abbbar
         elevation: 0,
         //boton de volver atras
-        
-        leading:  IconButton(
-          onPressed: () async{
+
+        leading: IconButton(
+          onPressed: () async {
             if (Navigator.canPop(context)) {
               Navigator.pop(context);
             } else {
@@ -45,13 +45,15 @@ class _ResultsPageState extends State<ResultsPage> {
             }
           },
           //TODO:hacer esto pero con una variable
-          icon: Navigator.canPop(context)?const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ):const Icon(
-            Icons.account_circle_outlined,
-            color: Colors.black,
-          ),
+          icon: Navigator.canPop(context)
+              ? const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                )
+              : const Icon(
+                  Icons.account_circle_outlined,
+                  color: Colors.black,
+                ),
         ),
         //agregar color en otro lugar para acceder mas facilmente
         backgroundColor: Color(0xff90a4ae),
@@ -72,18 +74,58 @@ class _ResultsPageState extends State<ResultsPage> {
         itemCount: InitialData.championsInitialData.length,
         itemBuilder: (BuildContext context, int i) {
           return ListTile(
-            title: Text(ChampionDataHandler.getChampById(InitialData.championsInitialData[i].championId)),
-            subtitle: Text(
+            title: Container(
+              padding: EdgeInsets.symmetric(vertical: 3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Text("vs ", style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold
+                          ),),
+                          Text(
+                            ChampionDataHandler.getChampById(
+                                InitialData.championsInitialData[i].championId),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        (InitialData.championsInitialData[i].losses +
+                                    InitialData.championsInitialData[i].wins)
+                                .toString() +
+                            " games",
+                      )
+                    ],
+                  ),
+                  Container(
+                    child: Text(
+                      InitialData.getPerCent(InitialData.championsInitialData[i]),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            /*subtitle: Text(
               (InitialData.championsInitialData[i].losses +
                           InitialData.championsInitialData[i].wins)
                       .toString() +
                   " games winrate:" +
                   InitialData.getPerCent(InitialData.championsInitialData[i]),
-            ),
-            trailing: Container(
-              child: Image.network("https://ddragon.leagueoflegends.com/cdn/12.12.1/img/champion/"+ChampionDataHandler.getChampById(InitialData.championsInitialData[i].championId)+".png"),
-              width: 40,
-              height: 40,
+            ),*/
+            leading: Container(
+              child: Image.network(ChampionDataHandler.getChampionImageUrl(
+                  ChampionDataHandler.getChampById(
+                      InitialData.championsInitialData[i].championId))),
+              width: 60,
+              height: 60,
             ),
             onTap: () {
               print("me tapiaron");

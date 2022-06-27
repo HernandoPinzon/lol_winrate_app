@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, prefer_interpolation_to_compose_strings
 
 import 'dart:io';
 import 'dart:convert' show jsonDecode, jsonEncode, utf8;
@@ -19,9 +19,9 @@ abstract class InitialData {
       losses: 51,
     ),
     ChampionData(
-      championId: 23,
-      wins: 32,
-      losses: 12,
+      championId: 200,
+      wins: 10,
+      losses: 50,
     ),
     ChampionData(
       championId: 45,
@@ -45,8 +45,8 @@ abstract class InitialData {
     ),
   ];
 
-  static String getPerCent(ChampionData champion){
-    return '${(champion.wins*100/(champion.losses + champion.wins)).round().toString()} %';
+  static String getPerCent(ChampionData champion) {
+    return '${(champion.wins * 100 / (champion.losses + champion.wins)).round().toString()}%';
   }
 }
 
@@ -61,28 +61,28 @@ class ChampionData {
   final int losses;
 }
 
-abstract class ChampionDataHandler{
+abstract class ChampionDataHandler {
   //TODO: crear clase con un cosntructor y enviarle los datos importantes o nose
   static List<Champion> championList = [];
-  static const String _linkVersions = 'https://ddragon.leagueoflegends.com/api/versions.json';
+  static const String _linkVersions =
+      'https://ddragon.leagueoflegends.com/api/versions.json';
   static String actualVersion = "0.0.1";
-  String _linkChampionIcon = 'https://ddragon.leagueoflegends.com/cdn/$actualVersion/img/champion/Renata.png';
-  static String _championDataLink = 'https://ddragon.leagueoflegends.com/cdn/$actualVersion/data/en_US/champion.json';
-  
-  static Future getLastVersion() async{
+  static String _linkChampionIcon =
+      'https://ddragon.leagueoflegends.com/cdn/$actualVersion/img/champion/';
+  static String _championDataLink =
+      'https://ddragon.leagueoflegends.com/cdn/$actualVersion/data/en_US/champion.json';
+
+  static getChampionImageUrl(String name) {
+    return _linkChampionIcon + name + ".png";
+  }
+
+  static Future getLastVersion() async {
     //TODO: guardar dato en shared prefences para hacer comparacion y ni hacer otro request de camepones si es el mismo
     try {
       var dio = Dio();
       var response = await dio.get(_linkVersions);
       var result = response.data;
       actualVersion = result[0];
-      /*HttpClient client = HttpClient();
-      HttpClientRequest request = await client.getUrl(Uri.parse(_linkVersions));
-      
-      HttpClientResponse response = await request.close();
-      var _response = await response.transform(utf8.decoder).join();
-      actualVersion = jsonDecode(_response)[0];
-      client.close();*/
     } catch (e) {
       print("Error en la recopilacion de la ultima version");
       print(_linkVersions);
@@ -91,7 +91,7 @@ abstract class ChampionDataHandler{
     }
   }
 
-  static Future getChampionsList() async{
+  static Future getChampionsList() async {
     try {
       var dio = Dio();
       var response = await dio.get(_championDataLink);
@@ -104,12 +104,17 @@ abstract class ChampionDataHandler{
       client.close();*/
       //Map _responseDecode = jsonDecode(_response)["data"];
 
-      List<String> championKeyList = _responseDecode.keys.map((e) => e.toString()).toList();
-      
+      List<String> championKeyList =
+          _responseDecode.keys.map((e) => e.toString()).toList();
+
       for (var key in championKeyList) {
-        championList.add(Champion(id: key, key: _responseDecode[key]["key"], name: _responseDecode[key]["name"]));
+        championList.add(Champion(
+            id: key,
+            key: _responseDecode[key]["key"],
+            name: _responseDecode[key]["name"]));
       }
-      var json = jsonEncode(List<dynamic>.from(championList.map((x) => x.toJson())));
+      var json =
+          jsonEncode(List<dynamic>.from(championList.map((x) => x.toJson())));
       final prefs = await SharedPreferences.getInstance();
       prefs.setString("championsList", json);
     } catch (e) {
@@ -119,20 +124,23 @@ abstract class ChampionDataHandler{
     }
   }
 
-
-  static initChampionsList() async{
+  static initChampionsList() async {
     final prefs = await SharedPreferences.getInstance();
+    //TODO: implementar comparacion con shared preferences
+    await getLastVersion();
     if (prefs.containsKey('championsList')) {
       String jsonString = prefs.getString('championsList')!;
       List json = jsonDecode(jsonString);
-      championList = json.map((e) => Champion(id: e["id"], key: e["key"], name: e["name"])).toList();
+      championList = json
+          .map((e) => Champion(id: e["id"], key: e["key"], name: e["name"]))
+          .toList();
     } else {
-      await getLastVersion();
+      
       await getChampionsList();
     }
   }
 
-  static String getChampById(int id){
+  static String getChampById(int id) {
     for (var champ in championList) {
       if (id.toString() == champ.key) {
         return champ.id;
@@ -143,19 +151,19 @@ abstract class ChampionDataHandler{
 }
 
 class Champion {
-    Champion({
-        required this.id,
-        required this.key,
-        required this.name,
-    });
+  Champion({
+    required this.id,
+    required this.key,
+    required this.name,
+  });
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "key": key,
         "name": name,
-    };
+      };
 
-    final String id;
-    final String key;
-    final String name;
+  final String id;
+  final String key;
+  final String name;
 }
