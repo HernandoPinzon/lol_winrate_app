@@ -15,6 +15,12 @@ abstract class PreferenceHandler {
   }
 
   static void addSearchInHistory(String value) async {
+    for (int i=0;i<searchHistory.length;i++) {
+      if (value == searchHistory[i]) {
+        i--;
+        searchHistory.remove(value);
+      }
+    }
     if (searchHistory.length > 9) {
       searchHistory.removeLast();
     }

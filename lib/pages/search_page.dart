@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:winrateforlol_app/models/preferences_handler.dart';
-import 'package:winrateforlol_app/widgets/navigation_bar.dart';
+import 'package:winrateforlol_app/widgets/google_nav.dart';
 import 'package:winrateforlol_app/widgets/searching_section.dart';
 
 class SearchPage extends StatefulWidget {
@@ -26,7 +26,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(228, 245, 245, 245),
-      bottomNavigationBar: MyNavigationBar(),
+      bottomNavigationBar: GoogleNavBar(position: 1),//MyNavigationBar(),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.only(top: 10, left: 10, right: 10),

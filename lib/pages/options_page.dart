@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:winrateforlol_app/widgets/navigation_bar.dart';
+import 'package:winrateforlol_app/widgets/google_nav.dart';
 import 'package:winrateforlol_app/widgets/options_list.dart';
 
 class OptionsPage extends StatefulWidget {
@@ -15,11 +15,15 @@ class _OptionsPageState extends State<OptionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Options"),
+        titleTextStyle: TextStyle(color: Colors.black, fontSize: 18),
+        backgroundColor: Color(0xff90a4ae),
+        title: Text(
+          "Options",
+        ),
         elevation: 0,
       ),
       backgroundColor: Color.fromARGB(228, 245, 245, 245),
-      bottomNavigationBar: MyNavigationBar(),
+      bottomNavigationBar: GoogleNavBar(position: 2),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -30,11 +34,11 @@ class _OptionsPageState extends State<OptionsPage> {
                 margin: EdgeInsets.all(10),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
-                      shadowColor: Colors.redAccent,
-                      padding: EdgeInsets.symmetric( horizontal: 30, vertical: 10)
-                    ),
-                    onPressed: () async{
+                        primary: Colors.red,
+                        shadowColor: Colors.redAccent,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 10)),
+                    onPressed: () async {
                       var prefs = await SharedPreferences.getInstance();
                       await prefs.clear();
                       print("Limpiado");

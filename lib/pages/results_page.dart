@@ -3,14 +3,21 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:winrateforlol_app/models/account_values.dart';
 import 'package:winrateforlol_app/models/initial_data.dart';
-import 'package:winrateforlol_app/widgets/navigation_bar.dart';
+import 'package:winrateforlol_app/widgets/google_nav.dart';
 
 class ResultsPage extends StatefulWidget {
   //TODO:usar el summoner name
-  final String summonerName;
-  ResultsPage({Key? key, required this.summonerName}) : super(key: key);
 
+  ResultsPage(
+      {Key? key,
+      required this.summonerName,
+      this.pageStatus = AccountValues.SEARCH_PAGE})
+      : super(key: key);
+
+  final String summonerName;
+  final int pageStatus;
   @override
   State<ResultsPage> createState() => _ResultsPageState();
 }
@@ -19,7 +26,7 @@ class _ResultsPageState extends State<ResultsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: MyNavigationBar(),
+      bottomNavigationBar: GoogleNavBar(position: widget.pageStatus),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: Icon(Icons.replay_outlined, color: Colors.black),
@@ -84,10 +91,12 @@ class _ResultsPageState extends State<ResultsPage> {
                     children: [
                       Row(
                         children: [
-                          const Text("vs ", style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold
-                          ),),
+                          const Text(
+                            "vs ",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold),
+                          ),
                           Text(
                             ChampionDataHandler.getChampById(
                                 InitialData.championsInitialData[i].championId),
@@ -104,10 +113,9 @@ class _ResultsPageState extends State<ResultsPage> {
                   ),
                   Container(
                     child: Text(
-                      InitialData.getPerCent(InitialData.championsInitialData[i]),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold
-                      ),
+                      InitialData.getPerCent(
+                          InitialData.championsInitialData[i]),
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -124,8 +132,8 @@ class _ResultsPageState extends State<ResultsPage> {
               child: Image.network(ChampionDataHandler.getChampionImageUrl(
                   ChampionDataHandler.getChampById(
                       InitialData.championsInitialData[i].championId))),
-              width: 60,
-              height: 60,
+              width: 50,
+              height: 50,
             ),
             onTap: () {
               print("me tapiaron");
