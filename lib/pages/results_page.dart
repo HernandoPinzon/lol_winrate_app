@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
-
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:winrateforlol_app/models/account_values.dart';

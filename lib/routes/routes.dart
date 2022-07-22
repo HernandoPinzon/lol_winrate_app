@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:winrateforlol_app/pages/account_page.dart';
 import 'package:winrateforlol_app/pages/options_page.dart';
 import 'package:winrateforlol_app/pages/results_page.dart';
