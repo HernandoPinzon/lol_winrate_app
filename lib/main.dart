@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:winrateforlol_app/models/initial_data.dart';
 import 'package:winrateforlol_app/models/options_handler.dart';
 import 'package:winrateforlol_app/models/preferences_handler.dart';
-import 'package:winrateforlol_app/pages/results_page.dart';
-import 'package:winrateforlol_app/pages/search_page.dart';
 import 'package:winrateforlol_app/routes/routes.dart';
 
 void main() {
@@ -61,5 +59,4 @@ Future initOptions() async {
   await OptionsHandler.initOptions();
   await PreferenceHandler.initHistory();
   await ChampionDataHandler.initChampionsList();
-  print("postInitOptionsCharged");
 }

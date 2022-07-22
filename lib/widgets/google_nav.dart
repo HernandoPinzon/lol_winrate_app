@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:winrateforlol_app/models/keys.dart';
 
 import '../pages/account_page.dart';
 import '../pages/options_page.dart';
@@ -38,11 +39,12 @@ class GoogleNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xff90a4ae),
+      color: const Color(0xff90a4ae),
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: GNav(
-          selectedIndex: this.position,
+          key: MyKeys.GNavKey,
+          selectedIndex: position,
           onTabChange: (value) {
             switch (value) {
               case 0:
@@ -58,11 +60,11 @@ class GoogleNavBar extends StatelessWidget {
                 break;
             }
           },
-          backgroundColor: Color(0xff90a4ae),
-          tabBackgroundColor: Color(0xffc1d5e0),
+          backgroundColor: const Color(0xff90a4ae),
+          tabBackgroundColor: const Color(0xffc1d5e0),
           gap: 5,
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          tabs: [
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          tabs: const [
             GButton(
               icon: Icons.account_circle_outlined,
               text: 'Account',
