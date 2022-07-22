@@ -76,6 +76,10 @@ abstract class ChampionDataHandler {
     return _linkChampionIcon + name + ".png";
   }
 
+  static getChampionImageAsset(String name) {
+    return 'assets/images/champion_icons/$name.png';
+  }
+
   static Future getLastVersion() async {
     //TODO: guardar dato en shared prefences para hacer comparacion y ni hacer otro request de camepones si es el mismo
     try {

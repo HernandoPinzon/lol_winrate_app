@@ -129,7 +129,7 @@ class _ResultsPageState extends State<ResultsPage> {
                   InitialData.getPerCent(InitialData.championsInitialData[i]),
             ),*/
             leading: Container(
-              child: Image.network(ChampionDataHandler.getChampionImageUrl(
+              child: Image.asset(ChampionDataHandler.getChampionImageAsset(
                   ChampionDataHandler.getChampById(
                       InitialData.championsInitialData[i].championId))),
               width: 50,
