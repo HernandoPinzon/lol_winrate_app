@@ -19,7 +19,8 @@ abstract class OptionsHandler{
     defaultPagePerfil = prefs.getBool('defaultPagePerfilOPTION')??false;
     showOnlyRankedsDefault = prefs.getBool('showOnlyRankedsDefaultOPTION')??false;
     showDefaultResults = prefs.getString('showDefaultResultsOPTION')??showDefaultResults;
-    print("initOptions");
+    
+
   }
 
   static Future setDefaultPagePerfil(bool value) async{

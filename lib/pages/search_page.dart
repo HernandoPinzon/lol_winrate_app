@@ -20,6 +20,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void _loadPreferences() async {
     //TODO:evitar fallos cuando no hay nada guardado
+    
   }
 
   @override
